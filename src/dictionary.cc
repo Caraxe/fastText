@@ -147,10 +147,10 @@ void Dictionary::initNgrams() {
 bool Dictionary::readWord(std::istream& in, std::string& word) const
 {
   char c;
-  std::streambuf& sb = *in.rdbuf();
-  word.clear();
-  while ((c = sb.sbumpc()) != EOF) {
-    if (c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == '\v' || c == '\f' || c == '\0') {
+  std::string word;
+  while (fin.peek() != EOF) {
+    fin.get(c);
+	if (( c >= -1 && isspace(c)) || c == 0) {
       if (word.empty()) {
         if (c == '\n') {
           word += EOS;
